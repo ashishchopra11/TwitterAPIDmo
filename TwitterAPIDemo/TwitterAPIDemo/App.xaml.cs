@@ -18,9 +18,8 @@ namespace TwitterAPIDemo
             {
 
             }
-
-
             MainPage = new NavigationPage(new TabbedPageContainer());
+            //MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

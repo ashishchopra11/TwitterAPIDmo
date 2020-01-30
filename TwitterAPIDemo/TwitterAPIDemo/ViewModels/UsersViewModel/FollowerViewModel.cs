@@ -70,6 +70,8 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                     var httpContent = await httpResponse.Content.ReadAsStringAsync();
                     await GenerateFollowerList();
                 }
+                DependencyService.Get<iMessage>().Shorttime("Action successful");
+
             }
             catch (Exception e)
             {

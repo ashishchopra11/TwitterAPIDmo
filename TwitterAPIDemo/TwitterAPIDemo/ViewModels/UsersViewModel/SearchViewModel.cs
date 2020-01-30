@@ -106,6 +106,7 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                             return;
                         }
                     }
+                    DependencyService.Get<iMessage>().Shorttime("user followed successful");
                 });
             }
         }

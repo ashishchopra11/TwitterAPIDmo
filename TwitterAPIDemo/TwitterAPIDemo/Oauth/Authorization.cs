@@ -27,6 +27,7 @@ namespace TwitterAPIDemo.Oauth
 
             _sigHasher = new HMACSHA1(
                 new ASCIIEncoding().GetBytes($"{_consumerKeySecret}&{_accessTokenSecret}")
+            //new ASCIIEncoding().GetBytes($"{_consumerKeySecret}")
             );
         }
         public string PrepareOAuth(string URL, Dictionary<string, string> data, string httpMethod)
@@ -36,6 +37,7 @@ namespace TwitterAPIDemo.Oauth
 
             // Add all the OAuth headers we'll need to use when constructing the hash
             Dictionary<string, string> oAuthData = new Dictionary<string, string>();
+            //oAuthData.Add("oauth_callback", "https://mobile.twitter.com");
             oAuthData.Add("oauth_consumer_key", _consumerKey);
             oAuthData.Add("oauth_signature_method", "HMAC-SHA1");
             oAuthData.Add("oauth_timestamp", timestamp.ToString());
@@ -85,7 +87,7 @@ namespace TwitterAPIDemo.Oauth
             return string.Format(
                 "OAuth {0}",
                 string.Join(
-                    ",",
+                    " ,",
                     data
                         .Where(kvp => kvp.Key.StartsWith("oauth_"))
                         .Select(
