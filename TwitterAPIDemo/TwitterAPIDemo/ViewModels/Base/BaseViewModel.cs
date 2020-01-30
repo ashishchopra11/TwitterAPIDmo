@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TwitterAPIDemo.Utils;
 using Xamarin.Forms;
 
 namespace TwitterAPIDemo.ViewModels.Base
 {
-    public abstract class BaseViewModel: ExtendedBindableObject
+    public abstract class BaseViewModel : ExtendedBindableObject
     {
         #region Initialization
         private bool _isTablet;
@@ -23,8 +20,6 @@ namespace TwitterAPIDemo.ViewModels.Base
         public event AlertHandlerWithResponse DisplayAlertEventWithResponse;
 
         #endregion
-
-
         #region Properties
 
         protected INavigation Navigation { get; set; }
@@ -102,6 +97,7 @@ namespace TwitterAPIDemo.ViewModels.Base
 
         #endregion
 
+
         public virtual Task InitializeAsync(Page page)
         {
             this.Navigation = page.Navigation;  // Maintain Navigation on initialization
@@ -141,7 +137,9 @@ namespace TwitterAPIDemo.ViewModels.Base
 
         public Task<bool> DisplalertAlertWithResponse(string message, string title = "Alert", string buttonAcceptText = "Yes", string buttonCancelText = "No")
         {
-            return DisplayAlertEventWithResponse?.Invoke(title, message, buttonAcceptText, buttonCancelText);
+            if (DisplayAlertEventWithResponse != null)
+                return DisplayAlertEventWithResponse?.Invoke(title, message, buttonAcceptText, buttonCancelText);
+            return Task.FromResult(false);
         }
 
         /// <summary>

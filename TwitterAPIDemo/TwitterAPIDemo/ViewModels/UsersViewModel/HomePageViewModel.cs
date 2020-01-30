@@ -13,13 +13,15 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
     public class HomePageViewModel : BaseViewModel
     {
         private List<Tweets> tweetData;
-        public List<Tweets> TweetData {
+        public List<Tweets> TweetData
+        {
             get => tweetData;
-            set {
+            set
+            {
                 tweetData = value;
                 OnPropertyChanged();
-                }
             }
+        }
         public HomePageViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
@@ -37,9 +39,11 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                 });
             }
         }
-
-        public bool IsFresh { get => isFresh;
-            set {
+        public bool IsFresh
+        {
+            get => isFresh;
+            set
+            {
                 isFresh = value;
                 OnPropertyChanged();
             }
@@ -48,7 +52,8 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
         {
             get
             {
-                return new Command(() => {
+                return new Command(() =>
+                {
                     Task.Run(() => usersTweets()).Wait();
                     IsFresh = false;
                 });
@@ -61,10 +66,10 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
 
             using (var httpClient = new HttpClient())
             {
+
                 httpClient.DefaultRequestHeaders.Add("Authorization", auth.PrepareOAuth(url, null, "GET"));
 
                 var httpResponse = await httpClient.GetAsync(url);
-
                 if (!httpResponse.StatusCode.Equals(System.Net.HttpStatusCode.OK))
                 {
                     DisplayAlert("sorry", "something went wrong", "ok");
@@ -83,7 +88,6 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                         ProfileImg = data.user.profile_image_url,
                         TweetText = data.text,
                         TweetMedia = data.user.profile_banner_url
-                        //TweetMedia = data.entities.urls.Count > 0 ?data.entities.urls[0].expanded_url:null
                     });
                 }
                 this.TweetData = tweets1;

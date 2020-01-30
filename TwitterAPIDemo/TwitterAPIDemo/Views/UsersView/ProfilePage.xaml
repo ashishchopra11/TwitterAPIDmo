@@ -26,13 +26,61 @@
             <Setter Property="WidthRequest" Value="60"/>
             <Setter Property="BorderColor" Value="DarkBlue"/>
         </Style>
+        <Style x:Key="NameEntry" TargetType="Entry">
+            <Setter Property="Keyboard" Value="Text"/>
+            <Setter Property="ReturnType" Value="Send"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="ClearButtonVisibility" Value="WhileEditing"/>
+        </Style>
+        <Style x:Key="Editicon" TargetType="ImageButton">
+            <Setter Property="HeightRequest" Value="20"/>
+            <Setter Property="WidthRequest" Value="20"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="BackgroundColor" Value="Black"/>
+
+        </Style>
+        <Style x:Key="Usernamelabel" TargetType="Label">
+            <Setter Property="FontAttributes" Value="None"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="TextColor" Value="LightGray"/>
+        </Style>
+        <Style x:Key="Locationlabel" TargetType="Label">
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+        <Style x:Key="DescriptionEntry" TargetType="Entry">
+            <Setter Property="Keyboard" Value="Text"/>
+            <Setter Property="ReturnType" Value="Send"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="ClearButtonVisibility" Value="WhileEditing"/>
+        </Style>
+        <Style x:Key="SaveButtonStack" TargetType="StackLayout">
+            <Setter Property="WidthRequest" Value="30"/>
+            <Setter Property="HeightRequest" Value="30"/>
+            <Setter Property="HorizontalOptions" Value="EndAndExpand"/>
+        </Style>
+        <Style x:Key="SaveImageButton" TargetType="ImageButton">
+            <Setter Property="Aspect" Value="AspectFill"/>
+            <Setter Property="BackgroundColor" Value="Black"/>
+        </Style>
     </local:BaseContentPage.Resources>
     <StackLayout>
         <RelativeLayout>
-            <StackLayout BackgroundColor="White" HeightRequest="100">
-                <Image Source="{Binding Banner}" Style="{StaticResource BannerImage}" WidthRequest="400"></Image>
+            <StackLayout BackgroundColor="White" 
+                         HeightRequest="100">
+                
+                <Image Source="{Binding Banner}" 
+                       Style="{StaticResource BannerImage}" 
+                       WidthRequest="400"></Image>
+                
                 <ImageButton CommandParameter="banner" Command="{Binding UploadImage}"
-                             Source="update_banner.png" WidthRequest="35" HeightRequest="35" 
+                             Source="update_banner.png" WidthRequest="35" 
+                             HeightRequest="35" 
                              HorizontalOptions="End"
                              RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=120}" 
                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
@@ -44,14 +92,28 @@
                     </Image.GestureRecognizers>
                 </Image>-->
             </StackLayout>
-            <StackLayout WidthRequest="30" HeightRequest="30"  IsVisible="{Binding Visibility}" HorizontalOptions="EndAndExpand"  RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=110}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                <ImageButton x:Name="SaveButton" CommandParameter="Save" Aspect="AspectFill" Command="{Binding SaveImage}" Source="SaveButton.png" BackgroundColor="Black" />
+            
+            <StackLayout Style="{StaticResource SaveButtonStack}" IsVisible="{Binding Visibility}"
+                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=110}"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                <ImageButton Style="{StaticResource SaveImageButton}" 
+                             x:Name="SaveButton" CommandParameter="Save"
+                             Command="{Binding SaveImage}" 
+                             Source="SaveButton.png" />
             </StackLayout>
-            <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Property=X, Factor=1,Constant=5}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=75}">
+            
+            <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Property=X, Factor=1,Constant=5}" 
+                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=75}">
+                
                 <Frame Style="{StaticResource RoundFrame}">
-                    <Image Source="{Binding ProfileImage}" Style="{StaticResource RoundImage}"/>
+                    <Image Source="{Binding ProfileImage}" 
+                           Style="{StaticResource RoundImage}"/>
                 </Frame>
-                <ImageButton CommandParameter="ProfileImage" Command="{Binding UploadImage}" Source="update_banner.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="Start" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=150}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+                <ImageButton CommandParameter="ProfileImage" Command="{Binding UploadImage}" 
+                             Source="update_banner.png" WidthRequest="20" HeightRequest="20" 
+                             HorizontalOptions="Start" 
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=150}" 
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
             </StackLayout>
 
             <StackLayout Margin="0,200,0,0">
@@ -62,24 +124,34 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+                    
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Entry Keyboard="Text" ReturnType="Send" TextColor="White" Grid.Row="0" Grid.Column="0" Text="{Binding Name ,Mode=TwoWay}" 
-                           ClearButtonVisibility="WhileEditing" ReturnCommand="{Binding EditProfile}" ReturnCommandParameter="EditName">
+                    
+                    <Entry Style="{StaticResource NameEntry}" Grid.Row="0" Grid.Column="0" 
+                           Text="{Binding Name ,Mode=TwoWay}" 
+                           ReturnCommand="{Binding EditProfile}" 
+                           ReturnCommandParameter="EditName"/>
 
-                    </Entry>
-                    <ImageButton Source="editDetails.png" Grid.Row="0" Grid.Column="1"  HeightRequest="20" WidthRequest="20" HorizontalOptions="Center"
-                        BackgroundColor="Black">
-                    </ImageButton>
-                    <Label Text="{Binding Username}" Grid.Row="1" Grid.Column="0" FontAttributes="None" FontSize="10" Margin="15" TextColor="LightGray"
-                         />
+                    <ImageButton Style="{StaticResource Editicon}" 
+                                 Source="editDetails.png" 
+                                 Grid.Row="0" Grid.Column="1"/>
 
-                    <Label Text="{Binding Location}" Grid.Row="3" Grid.Column="0" FontSize="14" Margin="15" TextColor="White"
-                          />
-                    <Entry Keyboard="Text" ReturnType="Send" TextColor="White" Text="{Binding Description}" Grid.Row="2" Grid.Column="0" FontAttributes="Bold" FontSize="14" Margin="15"
-                           ClearButtonVisibility="WhileEditing" ReturnCommand="{Binding EditProfile}" ReturnCommandParameter="EditDescription" />
+                    <Label Style="{StaticResource Usernamelabel}" 
+                           Text="{Binding Username}" 
+                           Grid.Row="1" Grid.Column="0"/>
+
+                    <Label Style="{StaticResource Locationlabel}" 
+                           Text="{Binding Location}"
+                           Grid.Row="3" Grid.Column="0"/>
+                    
+                    <Entry Style="{StaticResource DescriptionEntry}" 
+                           Text="{Binding Description}"
+                           Grid.Row="2" Grid.Column="0" 
+                           ReturnCommand="{Binding EditProfile}" 
+                           ReturnCommandParameter="EditDescription" />
 
                 </Grid>
             </StackLayout>

@@ -18,10 +18,5 @@ namespace TwitterAPIDemo.Views.UsersView
 			InitializeComponent ();
             BindingContext = new FollowingViewModel();
         }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            Debug.Write(e);
-        }
     }
 }

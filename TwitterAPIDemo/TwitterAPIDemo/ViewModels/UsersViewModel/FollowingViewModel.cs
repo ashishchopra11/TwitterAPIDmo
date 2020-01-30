@@ -39,12 +39,6 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
 
         private async void UnfollowUser(object obj)
         {
-            //bool confirm = await DisplalertAlertWithResponse("Unfollow", "users", "Yes", "No");
-            //if ( confirm )
-            //{
-            //    Debug.Write("hello " + obj);
-            //}
-            /*System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("Uname");*/
             string Uname = (string)obj.GetType().GetProperty("Uname").GetValue(obj);
             try
             {
@@ -77,8 +71,6 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
             {
 
             }
-
-            //await DestroyUser(Uname);
         }
 
         private async Task GenerateList()

@@ -27,10 +27,10 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
         {
             get
             {
-                return new Command(BlockUser);
+                return new Command(CreateAndDestroyFriend);
             }
         }
-        public async void BlockUser(object obj)
+        public async void CreateAndDestroyFriend(object obj)
         {
             try
             {
@@ -50,11 +50,10 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                      };
                 }
                 else {
-                     url = "https://api.twitter.com/1.1/blocks/create.json";
+                     url = "https://api.twitter.com/1.1/friendships/destroy.json";
                     data = new Dictionary<string, string>
                         {
-                            { "screen_name", Uname },
-                            { "skip_status", "1" }
+                            { "screen_name", Uname }
                      };
                 }
                

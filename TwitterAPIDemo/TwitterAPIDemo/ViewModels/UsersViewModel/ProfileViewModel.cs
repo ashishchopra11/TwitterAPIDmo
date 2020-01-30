@@ -1,14 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Plugin.Media;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
-using System.Windows.Input;
 using TwitterAPIDemo.Models;
 using TwitterAPIDemo.Oauth;
 using TwitterAPIDemo.ViewModels.Base;
@@ -130,12 +127,12 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                     string save = obj.ToString();
                     if (flag == true)
                     {
-
                         var url = "https://api.twitter.com/1.1/account/update_profile_banner.json";
                         await PostBanner(Banner, url.ToString());
                         var message = "Banner has been Updated";
                         DependencyService.Get<iMessage>().Shorttime(message);
                         flag = false;
+                        Visibility = false;
                     }
                     else
                     {
@@ -144,6 +141,7 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                         await PostBanner(ProfileImage, url.ToString());
                         var message = "Profile Image has been updated";
                         DependencyService.Get<iMessage>().Shorttime(message);
+                        Visibility = false;
                     }
                 });
             }
@@ -266,7 +264,6 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
         private string banner;
         private string profileImage;
         private string name;
-        private Button SaveButton;
         private bool visibility;
         public string Username { get; set; }
         public string Location { get; set; }

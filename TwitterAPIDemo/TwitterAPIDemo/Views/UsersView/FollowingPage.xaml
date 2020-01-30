@@ -5,7 +5,7 @@
              >
     <ContentView.Content>
         <ListView ItemsSource="{Binding followingsList}"
-                  x:Name="FollowingList"
+                  x:Name="Following"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -29,7 +29,7 @@
                             <StackLayout Grid.Row="0" Grid.Column="2" VerticalOptions="Center">
                                 <Button Text="{Binding Status}"
                                         Style="{StaticResource followBtn}"
-                                        Command="{Binding Path=BindingContext.Unfollow, Source={x:Reference FollowingList}}"
+                                        Command="{Binding Path=BindingContext.Unfollow, Source={x:Reference Following}}"
                                         CommandParameter="{Binding .}"/>
                             </StackLayout>
                         </Grid>

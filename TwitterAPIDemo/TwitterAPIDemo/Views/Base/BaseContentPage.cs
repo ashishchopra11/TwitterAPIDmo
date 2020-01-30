@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
 using TwitterAPIDemo.ViewModels.Base;
 using Xamarin.Forms;
 
 namespace TwitterAPIDemo.Views.Base
 {
-    public class BaseContentPage: ContentPage
+    public class BaseContentPage : ContentPage
     {
         private BaseViewModel ViewModel
         {
@@ -26,7 +24,7 @@ namespace TwitterAPIDemo.Views.Base
             {
                 // Subscribe display alert event
                 ViewModel.DisplayAlertEvent += ViewModel_DisplayAlert;
-                //ViewModel.DisplayAlertEventWithResponse += ViewModel_DisplayAlertResponse;
+                ViewModel.DisplayAlertEventWithResponse += ViewModel_DisplayAlertResponse;
                 await ViewModel.InitializeAsync(this);
             }
         }
@@ -39,7 +37,7 @@ namespace TwitterAPIDemo.Views.Base
             {
                 // Unsubscribe display alert event
                 ViewModel.DisplayAlertEvent -= ViewModel_DisplayAlert;
-                //ViewModel.DisplayAlertEventWithResponse -= ViewModel_DisplayAlertResponse;
+                ViewModel.DisplayAlertEventWithResponse -= ViewModel_DisplayAlertResponse;
                 ViewModel.FinalizeAsync();
             }
         }
@@ -48,10 +46,10 @@ namespace TwitterAPIDemo.Views.Base
         {
             DisplayAlert(title, message, buttonText);
         }
-        //async Task<bool> ViewModel_DisplayAlertResponse(string title, string message, string buttonAcceptText, string buttonCancelText)
-        //{
-        //    return await DisplayAlert(title, message, buttonAcceptText, buttonCancelText);
-        //}
+        async Task<bool> ViewModel_DisplayAlertResponse(string title, string message, string buttonAcceptText, string buttonCancelText)
+        {
+            return await DisplayAlert(title, message, buttonAcceptText, buttonCancelText);
+        }
 
     }
 }
