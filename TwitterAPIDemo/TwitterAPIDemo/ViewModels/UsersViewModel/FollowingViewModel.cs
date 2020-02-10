@@ -8,6 +8,7 @@ using TwitterAPIDemo.Models;
 using TwitterAPIDemo.Oauth;
 using TwitterAPIDemo.ViewModels.Base;
 using Xamarin.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace TwitterAPIDemo.ViewModels.UsersViewModel
 {
@@ -78,7 +79,7 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                 httpClient.DefaultRequestHeaders.Add("Authorization", auth.PrepareOAuth(url, null, "GET"));
 
                 var httpResponse = await httpClient.GetAsync(url);
-
+               
                 if (!httpResponse.StatusCode.Equals(System.Net.HttpStatusCode.OK))
                 {
                     DisplayAlert("sorry", "something went wrong", "ok");

@@ -6,25 +6,26 @@
              x:Class="TwitterAPIDemo.Views.UsersView.ProfilePage"
              BackgroundColor="Black">
     <local:BaseContentPage.Resources>
-        <!--<Style x:Key="MainStackLayout" TargetType="StackLayout">
-            <Setter Property="Padding" Value="10,10,10,10"/>
-        </Style>-->
         <Style x:Key="BannerImage" TargetType="Image">
             <Setter Property="HeightRequest" Value="100"/>
             <Setter Property="Margin" Value="-20"/>
         </Style>
         <Style x:Key="RoundImage" TargetType="Image">
             <Setter Property="Aspect" Value="AspectFill"/>
-            <Setter Property="Margin" Value="-20"/>
-            <Setter Property="Margin" Value="-20"/>
             <Setter Property="HeightRequest" Value="80"/>
             <Setter Property="WidthRequest" Value="80"/>
+            <Setter Property="Margin" Value="-20"/>
+            <Setter Property="Margin" Value="-20"/>
         </Style>
         <Style x:Key="RoundFrame" TargetType="Frame">
             <Setter Property="CornerRadius" Value="60"/>
             <Setter Property="HeightRequest" Value="60"/>
             <Setter Property="WidthRequest" Value="60"/>
             <Setter Property="BorderColor" Value="DarkBlue"/>
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <!--<Setter Property="IsClippedToBounds" Value="True"/>-->
+            
         </Style>
         <Style x:Key="NameEntry" TargetType="Entry">
             <Setter Property="Keyboard" Value="Text"/>
@@ -37,7 +38,6 @@
             <Setter Property="WidthRequest" Value="20"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="BackgroundColor" Value="Black"/>
-
         </Style>
         <Style x:Key="Usernamelabel" TargetType="Label">
             <Setter Property="FontAttributes" Value="None"/>
@@ -68,93 +68,98 @@
             <Setter Property="Aspect" Value="AspectFill"/>
             <Setter Property="BackgroundColor" Value="Black"/>
         </Style>
+        <Style x:Key="GridChild1" TargetType="Grid">
+            <Setter Property="Margin" Value="0,80,0,0"/>
+        </Style>
     </local:BaseContentPage.Resources>
-    <StackLayout>
-        <RelativeLayout>
-            <StackLayout BackgroundColor="White" 
-                         HeightRequest="100">
-                
-                <Image Source="{Binding Banner}" 
-                       Style="{StaticResource BannerImage}" 
-                       WidthRequest="400"></Image>
-                
-                <ImageButton CommandParameter="banner" Command="{Binding UploadImage}"
-                             Source="update_banner.png" WidthRequest="35" 
-                             HeightRequest="35" 
-                             HorizontalOptions="End"
-                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=120}" 
-                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
-                <!--<Image Source="update_banner.png" HeightRequest="35" WidthRequest="35" HorizontalOptions="End">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
-                            Command="{Binding UploadImage}"
-                            CommandParameter="banner"/>
-                    </Image.GestureRecognizers>
-                </Image>-->
-            </StackLayout>
-            
-            <StackLayout Style="{StaticResource SaveButtonStack}" IsVisible="{Binding Visibility}"
-                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=110}"
-                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                <ImageButton Style="{StaticResource SaveImageButton}" 
-                             x:Name="SaveButton" CommandParameter="Save"
-                             Command="{Binding SaveImage}" 
-                             Source="SaveButton.png" />
-            </StackLayout>
-            
-            <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Property=X, Factor=1,Constant=5}" 
-                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=75}">
-                
-                <Frame Style="{StaticResource RoundFrame}">
-                    <Image Source="{Binding ProfileImage}" 
-                           Style="{StaticResource RoundImage}"/>
-                </Frame>
-                <ImageButton CommandParameter="ProfileImage" Command="{Binding UploadImage}" 
-                             Source="update_banner.png" WidthRequest="20" HeightRequest="20" 
-                             HorizontalOptions="Start" 
-                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=150}" 
-                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
-            </StackLayout>
+    <Grid>
+        <Image Source="{Binding Banner}"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="StartAndExpand"
+               HeightRequest="130"
+               Aspect="Fill"/>
 
-            <StackLayout Margin="0,200,0,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <Entry Style="{StaticResource NameEntry}" Grid.Row="0" Grid.Column="0" 
+        <Image Source="update_banner.png"             
+                   HorizontalOptions="End"
+                   VerticalOptions="Start"
+                   HeightRequest="35"
+                   WidthRequest="35">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer
+                        CommandParameter="banner" 
+                        Command="{Binding UploadImage}" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Grid Style="{StaticResource GridChild1}">
+            <Frame Style="{StaticResource RoundFrame}">
+                <Image Source="{Binding ProfileImage}" 
+                   Style="{StaticResource RoundImage}"/>
+            </Frame>
+            <Image Source="update_banner.png"             
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="StartAndExpand"
+                   HeightRequest="35"
+                   WidthRequest="35">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        CommandParameter="ProfileImage" 
+                        Command="{Binding UploadImage}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Button x:Name="SaveButton"
+                    Text="SAVE"
+                    Command="{Binding SaveImage}"
+                    CommandParameter="Save"
+                    IsVisible="{Binding Visibility}"
+                    VerticalOptions="StartAndExpand"
+                    HorizontalOptions="EndAndExpand"
+                    TextColor="White"
+                    BackgroundColor="Blue"
+                    >
+            </Button>
+        </Grid>
+
+        <Grid HorizontalOptions="StartAndExpand" 
+              VerticalOptions="CenterAndExpand"
+              Margin="0,150,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Entry Grid.Row="0" Grid.Column="0" 
                            Text="{Binding Name ,Mode=TwoWay}" 
                            ReturnCommand="{Binding EditProfile}" 
-                           ReturnCommandParameter="EditName"/>
+                           ReturnCommandParameter="EditName"
+                            Style="{StaticResource NameEntry}"/>
 
-                    <ImageButton Style="{StaticResource Editicon}" 
+            <ImageButton Style="{StaticResource Editicon}" 
                                  Source="editDetails.png" 
                                  Grid.Row="0" Grid.Column="1"/>
 
-                    <Label Style="{StaticResource Usernamelabel}" 
+            <Label Style="{StaticResource Usernamelabel}" 
                            Text="{Binding Username}" 
                            Grid.Row="1" Grid.Column="0"/>
 
-                    <Label Style="{StaticResource Locationlabel}" 
+            <Label Style="{StaticResource Locationlabel}" 
                            Text="{Binding Location}"
                            Grid.Row="3" Grid.Column="0"/>
-                    
-                    <Entry Style="{StaticResource DescriptionEntry}" 
+
+            <Entry Style="{StaticResource DescriptionEntry}" 
                            Text="{Binding Description}"
                            Grid.Row="2" Grid.Column="0" 
                            ReturnCommand="{Binding EditProfile}" 
                            ReturnCommandParameter="EditDescription" />
 
-                </Grid>
-            </StackLayout>
-        </RelativeLayout>
-    </StackLayout>
+        </Grid>
+
+    </Grid>
 </local:BaseContentPage>

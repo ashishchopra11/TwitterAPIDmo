@@ -28,6 +28,7 @@
                             </StackLayout>
                             <StackLayout Grid.Row="0" Grid.Column="2" VerticalOptions="Center">
                                 <Button Text="{Binding Status}"
+                                        x:Name="StatusBtn"
                                         Style="{StaticResource followBtn}"
                                         Command="{Binding Path=BindingContext.Unfollow, Source={x:Reference Following}}"
                                         CommandParameter="{Binding .}"/>

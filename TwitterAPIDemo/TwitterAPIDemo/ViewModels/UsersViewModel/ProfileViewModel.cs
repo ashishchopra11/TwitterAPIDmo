@@ -56,9 +56,8 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                     {
                         {"name" , Name }
                     };
-                        await Update(data);
-                        var message = "Name has been updated";
-                        DependencyService.Get<iMessage>().Shorttime(message);
+                        await Update(data);                     
+                        DependencyService.Get<iMessage>().Shorttime("Name has been updated");
                     }
 
                     else if (property == "EditDescription")
@@ -67,9 +66,8 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                         {
                             {"description", Description }
                         };
-                        await Update(data);
-                        var message = "Description has been updated";
-                        DependencyService.Get<iMessage>().Shorttime(message);
+                        await Update(data);                      
+                        DependencyService.Get<iMessage>().Shorttime("Description has been updated");
                     }
 
                 });
@@ -101,17 +99,22 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
             {
                 return new Command(async (object obj) =>
                     {
+                        
                         string type = obj.ToString();
                         if (type == "banner")
                         {
                             flag = true;
-                            Banner = await ClickToUpload();
+                            var ImageUrl = await ClickToUpload();
+                            if (ImageUrl == null)
+                                Banner = Banner;
                             Visibility = true;
 
                         }
                         else if (type == "ProfileImage")
                         {
-                            ProfileImage = await ClickToUpload();
+                            var ImageUrl = await ClickToUpload();
+                            if (ImageUrl == null)
+                                ProfileImage = ProfileImage;
                             Visibility = true;
 
                         }
@@ -128,9 +131,8 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                     if (flag == true)
                     {
                         var url = "https://api.twitter.com/1.1/account/update_profile_banner.json";
-                        await PostBanner(Banner, url.ToString());
-                        var message = "Banner has been Updated";
-                        DependencyService.Get<iMessage>().Shorttime(message);
+                        await PostBanner(Banner, url.ToString());                     
+                        DependencyService.Get<iMessage>().Shorttime("Banner has been Updated");
                         flag = false;
                         Visibility = false;
                     }
@@ -138,9 +140,8 @@ namespace TwitterAPIDemo.ViewModels.UsersViewModel
                     {
 
                         var url = "https://api.twitter.com/1.1/account/update_profile_image.json";
-                        await PostBanner(ProfileImage, url.ToString());
-                        var message = "Profile Image has been updated";
-                        DependencyService.Get<iMessage>().Shorttime(message);
+                        await PostBanner(ProfileImage, url.ToString());                      
+                        DependencyService.Get<iMessage>().Shorttime("Profile Image has been updated");
                         Visibility = false;
                     }
                 });
